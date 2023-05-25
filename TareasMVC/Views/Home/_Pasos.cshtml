@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+
+<label>
+    <i class="bi bi-check-square"></i>
+    @localizer["label.task"]
+</label>
+<button class="btn btn-secondary" onclick="manejarClickAgregarPaso()">
+    <i class="bi bi-plus"></i>
+</button>
+
+<div id="reordenable-pasos" data-bind="foreach: pasos">
+    <div class="mt-2">
+        <div class="row">
+            <div class="col-1">
+                <input type="checkbox" class="form-check-input" name="chbPaso"
+                    data-bind="checked: realizado,
+                                click: manejarClickCheckboxPaso,
+                                attr: {'data-id':id}"/>
+            </div>
+            <div class="col-11">
+                <span style="cursor: pointer" data-bind="text:descripcion, hidden: modoEdicion,
+                    click: manejarClickDescripcionPaso,
+                    css:{'text-decoration-line-through': realizado}"></span>
+                <textarea name="txtPasoDescripcion" class="form-control"
+                          placeholder="@localizer["placeholder.description"]"
+                    data-bind="{value: descripcion, visible: modoEdicion}">
+                </textarea>
+                <div class="mt-2" data-bind="{visible: modoEdicion}">
+                    <button class="btn btn-primary" data-bind="{click: manejarClickSalvarPaso}">@localizer["btn.Register"]</button>
+                    <button class="btn btn-secondary" data-bind="{click: manejarClickCancelarPaso}">@localizer["btn.Cancel"]</button>
+                    <button class="btn btn-danger" data-bind="{hidden: esNuevo, click: manejarClickBorrarPaso}">@localizer["btn.Delete"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

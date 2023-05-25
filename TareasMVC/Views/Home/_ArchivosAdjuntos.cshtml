@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+
+<label><i class="bi bi-paperclip"></i>@localizer["label.file"]</label>
+<button class="btn btn-secondary btn-sl" onclick="manejarClickAgregarArchivoAdjunto()"><i class="bi bi-plus"></i></button>
+<input type="file" id="archivoATarea"
+    onchange="manejarSeleccionArchivoTarea(event)"
+    multiple style="display: none"/>
+
+<div data-bind="foreach: archivosAdjuntos">
+    <div>
+        <div style="cursor: pointer" class="fw-bold" data-bind="text: titulo,
+            hidden: modoEdicion,
+            click: manejarClickTituloArchivoAdjunto"></div>
+
+        <div data-bind="visible: modoEdicion, event: {focusout: manejarFocusoutTituloArchivoAdjunto}">
+            <input name="txtArchivoAdjuntoTitulo" type="text" class="form-control"
+                data-bind="value: titulo, attr:{'data-id':id}"/>
+        </div>
+
+        <div>
+            @localizer["div.add"] <span data-bind="text: publicado"></span> -
+            <span class="fw-bold" style="cursor: pointer"
+                  data-bind="click: manejarClickBorrarArchivoAdjunto">@localizer["btn.Borrar"]</span>
+            <span class="fw-bold" style="cursor: pointer" data-bind="click: manejarClickDescargarArchivoAdjunto">@localizer["btn.Descargar"]</span>
+        </div>
+    </div>
+</div>

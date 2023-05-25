@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+@model LoginViewModel
+
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>@localizer["title"]</h1>
+
+@if (ViewData.Keys.Contains("mensaje"))
+{
+    ViewData["Title"] = "Login";
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" autocomplete="on" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="Recuerdame" class="form-check-input" type="checkbox"/>
+                <label asp-for="Recuerdame" class="form-label"></label>
+            </div>
+
+            <button class="btn btn-primary">Login</button>
+            <a asp-action="Registro" class="btn btn-success">@localizer["btn.Registrar"]</a>
+
+            <a class="btn btn-info" asp-action="LoginExterno" asp-route-proveedor="Microsoft">
+                @localizer["btn.Microsoft"]
+            </a>
+
+        </form>
+    </div>
+    
+</div> 
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
